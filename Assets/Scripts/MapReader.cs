@@ -4,13 +4,18 @@ using System.Collections.Generic;
 using System.Xml;
 using UnityEngine;
 
-public class MapReader : MonoBehaviour {
+public class MapReader : MonoBehaviour
+{
+    Dictionary<ulong, OsmNode> nodes;
+    OsmBounds bounds;
 
     [Tooltip("The resource file that contains the OSM map data")]
     public string resourceFile;
 
     // Use this for initialization
 	void Start () {
+        nodes = new Dictionary<ulong, OsmNode>();
+    
         var txtAsset = Resources.Load<TextAsset>(resourceFile);
 
         XmlDocument doc = new XmlDocument();
@@ -29,11 +34,17 @@ public class MapReader : MonoBehaviour {
 
     void GetNodes(XmlNodeList xmlNodeList)
     {
+        foreach (XmlNode n in xmlNodeList)
+        {
+            OsmNode node = new OsmNode(n);
+            nodes[node.ID] = node;
+        }
     
     }
 
-    void SetBounds(XmlNode xmlNode)
+    void SetBounds(XmlNode xmlnode)
     {
+        bounds = new OsmBounds(xmlnode);
     
     }
 
