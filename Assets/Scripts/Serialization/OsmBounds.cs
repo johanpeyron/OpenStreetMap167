@@ -16,10 +16,10 @@ class OsmBounds : BaseOsm
 
     public OsmBounds(XmlNode node)
     {
-        MinLat = GetAttributes<float>("minlat", node.Attributes);
-        MaxLat = GetAttributes<float>("maxlat", node.Attributes);
-        MinLon = GetAttributes<float>("minlon", node.Attributes);
-        MaxLon = GetAttributes<float>("maxlon", node.Attributes);
+        MinLat = GetAttribute<float>("minlat", node.Attributes);
+        MaxLat = GetAttribute<float>("maxlat", node.Attributes);
+        MinLon = GetAttribute<float>("minlon", node.Attributes);
+        MaxLon = GetAttribute<float>("maxlon", node.Attributes);
 
         float x = (float)(MercatorProjection.lonToX(MaxLon) + MercatorProjection.lonToX(MinLon)) / 2;
         float y = (float)(MercatorProjection.latToY(MaxLat) + MercatorProjection.latToY(MinLat)) / 2;
